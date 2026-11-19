@@ -24,11 +24,10 @@ export function showQR() {
   const card = h(
     'div',
     { class: 'qr-card' },
-    h('h2', { class: 'qr-title' }, 'Scan to read and play on your phone'),
+    h('h2', { class: 'qr-title' }, 'Scan to play!! (Outline mode are not suitable for phone)'),
     svg ? h('div', { html: svg }) : h('p', { class: 'badge' }, 'QR library did not load; use the address below.'),
     h('p', { class: 'qr-url' }, url),
     !SITE_URL ? h('p', { class: 'qr-note' }, 'SITE_URL is not set in js/config.js, so this is the current address.') : null,
   );
   return openOverlay(card, { label: 'QR code', cls: 'qr-overlay' });
 }
-
