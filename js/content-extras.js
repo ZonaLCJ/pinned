@@ -8,11 +8,10 @@ import { num } from './ui/format.js';
 // 'A. Author et al., Journal 89, 252110 (2006)' -> journal name in italics
 const refHtml = (r) => esc(r).replace(/, ([A-Z][A-Za-z. ]+?) (\d+, \d+ \(\d{4}\))$/, ', <em>$1</em> $2');
 
-
+// <li>Course material: <em>Introduction to Semiconductor</em>, PDF pp. 268–282 (metal–semiconductor junction, Mott–Schottky rule, interface charges, depletion capacitance, Schottky diode, 2D contacts) and p. 287 (tunnelling decay length).</li>
 export function EXTRAS() {
   return {
-    lede: `<p><strong>Assigned topic.</strong> Interface states can pin the Fermi level and weaken the dependence of the Schottky barrier height on the chosen metal. This site shows how the metal work function $\\phi_m$ and the pinning strength set the resulting barrier $\\phi_{Bn}$.</p>
-<p>Four short sections, each with a live simulation: what interface states are, where the work-function difference goes, how strongly the barrier is pinned (and what experiments show), and how contacts get around the pin.</p>`,
+    lede: `<p>Interface states can pin the Fermi level and weaken the dependence of Schottky barrier height on the chosen metal. This site shows <strong>how metal work function and pinning strength affect the resulting barrier</strong> with 4 sections, each with a live simulation, try to answer these 4 questions: what interface states are, where the work-function difference goes, how strongly the barrier is pinned (and what experiments show), and how contacts get around the pin.</p>`,
     misconceptions: `<ul class="myth-list">${MYTHS.map(
       (m) => `<li><span class="verdict ${m.answer}">${m.answer === 'myth' ? 'Myth' : 'Fact'}:</span> “${m.text}” ${m.why}</li>`,
     ).join('')}</ul>`,
@@ -31,7 +30,7 @@ export function EXTRAS() {
 <li>Course data overlays are ${DIGITIZED_LABEL.replace('≈ ', 'approximately ')}. ${MOTT_SCHOTTKY.footnote}</li>
 </ul>`,
     refs: `<ol class="ref-list">
-<li>Course material: <em>Introduction to Semiconductor</em>, PDF pp. 268–282 (metal–semiconductor junction, Mott–Schottky rule, interface charges, depletion capacitance, Schottky diode, 2D contacts) and p. 287 (tunnelling decay length).</li>
+<li>Course material of "Introduction to Semiconductor" by prof. Mario Hofmann of NTU.</li>
 <li>D. A. Neamen, <em>Semiconductor Physics and Devices</em>, ch. 9 (Tables 9.1 and 9.2, interface-state model).</li>
 <li>J. Bardeen, <em>Phys. Rev.</em> 71, 717 (1947).</li>
 <li>V. Heine, <em>Phys. Rev.</em> 138, A1689 (1965).</li>
@@ -43,6 +42,7 @@ export function EXTRAS() {
 <li>${refHtml(REFS_EXTRA.dimoulas)} (Ge preset: neutral level and S).</li>
 <li>${refHtml(REFS_EXTRA.polyakov)} (GaN preset: E<sub>F</sub> pinned about ${num(SEMICONDUCTORS.GaN.Eg - PRESETS.gan.phi0, 1)} eV below E<sub>c</sub>; illustrative D<sub>it</sub>).</li>
 </ol>`,
-    footerNote: `Every number on this site is computed live by the engine (<code>js/engine.js</code>) or read from the course data file (<code>data/course-data.js</code>).`,
+    // footerNote: `Every number on this site is computed live by the engine (<code>js/engine.js</code>) or read from the course data file (<code>data/course-data.js</code>).`,
+    footerNote: `Every number on this site is computed live or found from the course material.`,
   };
 }
