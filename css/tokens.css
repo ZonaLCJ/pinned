@@ -1,0 +1,47 @@
+/* Design tokens (spec §4). #919CFF is ~2.5:1 on white: never use it for text or thin lines. */
+:root {
+  --brand: #919cff;       /* accents, active states, slider tracks, highlight fills, buttons (dark text on it) */
+  --brand-ink: #4b56d2;   /* text-safe brand: links, focus rings, the E_F line (5.9:1 on white) */
+  --brand-tint: #eef0ff;  /* cards, callouts, depletion-region shading */
+  --brand-soft: #d9ddff;  /* hover/pressed tint between tint and brand */
+  --bg: #fbfbff;
+  --surface: #ffffff;
+  --text: #1d2040;
+  --text-muted: #5a5f7a;
+  --border: #daddf5;
+
+  /* physics colours (plots) */
+  --c-band: var(--text);
+  --c-ef: var(--brand-ink);
+  --c-e0: #d98e04;        /* neutral level, line only */
+  --c-vac: #8a8fa8;       /* vacuum level, dotted line only */
+  --c-pos: #e4572e;       /* positive charge (fills, thick marks) */
+  --c-neg: #1b998b;       /* negative charge (fills, thick marks) */
+  --c-metal: #c7cbe6;
+  --c-valence-fill: #f1f2f8;
+
+  /* text-safe companions of the physics colours (>= 4.5:1 on white) */
+  --c-e0-ink: #8a5a00;
+  --c-pos-ink: #b23a17;
+  --c-neg-ink: #0f6e63;
+
+  --font-sans: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+
+  --radius: 10px;
+  --radius-sm: 6px;
+  --shadow: 0 1px 2px rgba(29, 32, 64, 0.06), 0 4px 16px rgba(29, 32, 64, 0.06);
+  --focus: 0 0 0 3px var(--surface), 0 0 0 5px var(--brand-ink);
+
+  /* sizes overridden per mode */
+  --fs-body: 17px;
+  --fs-small: 15px;
+  --fs-takeaway: 21px;
+  --fs-eq: 20px;
+  --fs-h2: 30px;
+  --plot-tick: 13px;
+  --plot-label: 15px;
+  --plot-line: 2.5px;
+  --thumb: 24px;
+  --touch: 44px;
+}

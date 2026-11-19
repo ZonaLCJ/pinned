@@ -1,0 +1,277 @@
+/* Presentation mode: laptop, audience 1–2 m away. One section per screen, no scrolling. */
+body.mode-present {
+  --fs-body: 22px;
+  --fs-small: 18px;
+  --fs-takeaway: 28px;
+  --fs-eq: 28px;
+  --fs-btn: 20px;
+  --fs-ctl: 20px;
+  --plot-tick: 18px;
+  --plot-label: 21px;
+  --plot-line: 3px;
+  --thumb: 28px;
+  --touch: 44px;
+  --ss-min: 16px;
+  height: 100vh;
+  overflow: hidden;
+}
+html[data-mode='present'] { height: 100%; overflow: hidden; }
+/* readability floor: no visible text under 16 px, sub/superscripts included */
+.mode-present sub, .mode-present sup { font-size: max(16px, 0.8em); }
+@media (min-height: 1000px) and (min-width: 1700px) {
+  body.mode-present {
+    --fs-body: 24px;
+    --fs-takeaway: 33px;
+    --fs-eq: 32px;
+    --plot-tick: 20px;
+    --plot-label: 23px;
+    --fs-btn: 22px;
+    --fs-ctl: 22px;
+    --thumb: 30px;
+    --touch: 48px;
+  }
+}
+
+.app-present { display: grid; grid-template-rows: auto minmax(0, 1fr); height: 100vh; height: 100dvh; }
+
+/* ---- top bar (shared look) */
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 5px 14px;
+  background: var(--surface);
+  border-bottom: 1.5px solid var(--border);
+  min-width: 0;
+}
+.tb-brand { display: flex; align-items: baseline; gap: 10px; min-width: 0; flex: 1 1 auto; color: var(--text); text-decoration: none; }
+.brand-mark { width: 14px; height: 14px; border-radius: 4px; background: var(--brand); flex: none; align-self: center; box-shadow: inset 0 -3px 0 var(--brand-ink); }
+.site-title { font-weight: 700; font-size: 1.05em; white-space: nowrap; }
+.site-sub { color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.tb-right { display: flex; align-items: center; gap: 4px; flex: none; }
+.icon-btn { min-width: var(--touch); padding: 0 0.5em; }
+.icon-btn .icon { width: 22px; height: 22px; }
+.mode-toggle .btn { min-height: var(--touch); }
+
+.mode-present .topbar { height: 58px; font-size: 18px; --fs-btn: 18px; }
+.mode-present .site-sub { font-size: 17px; }
+.deck-nav { display: flex; align-items: center; gap: 6px; flex: none; }
+.dots { list-style: none; display: flex; gap: 6px; margin: 0; padding: 0; }
+.dot {
+  width: 40px; height: 40px; border-radius: 50%;
+  border: 2px solid var(--brand); background: var(--surface); color: var(--text);
+  font: inherit; font-weight: 600; font-size: 17px; cursor: pointer;
+}
+.dot[aria-current='step'] { background: var(--brand); }
+.dot:hover { background: var(--brand-tint); }
+.dot[aria-current='step']:hover { background: var(--brand); }
+
+/* ---- slides */
+.deck { position: relative; min-height: 0; overflow: hidden; }
+.slide {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 35fr) minmax(0, 65fr);
+  gap: 20px;
+  padding: 14px 16px 12px 24px;
+}
+.slide-left { position: relative; display: flex; flex-direction: column; gap: 16px; min-height: 0; overflow: visible; z-index: 2; }
+.slide-head { display: flex; gap: 14px; align-items: flex-start; }
+.sec-num {
+  flex: none; width: 1.7em; height: 1.7em; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--brand); color: var(--text); font-weight: 700;
+}
+.mode-present .slide-head h2 { font-size: 29px; line-height: 1.2; }
+.mode-present .sec-num { font-size: 22px; }
+.mode-present .takeaway { font-size: var(--fs-takeaway); line-height: 1.3; font-weight: 500; margin: 0; }
+.mode-present .keyeq {
+  font-size: var(--fs-eq);
+  background: var(--brand-tint);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+}
+.mode-present .keyeq .katex-display > .katex { font-size: var(--fs-eq); }
+.mode-present .keyeq .katex-display { text-align: left; }
+.mode-present .keyeq .katex-display > .katex { text-align: left; white-space: normal; }
+.slide-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: auto; align-items: center; }
+.slide-actions .btn { min-height: 52px; font-size: 21px; padding: 0 0.85em; }
+.slide-actions .kbd { margin-left: 2px; }
+.more-toggle { min-height: 52px; font-size: 21px; }
+.more-drawer {
+  position: absolute; top: 0; bottom: 0; left: 0; z-index: 30;
+  width: min(800px, calc(100vw - 48px));
+  background: var(--surface); border: 1.5px solid var(--brand); border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  display: flex; flex-direction: column; min-height: 0;
+}
+.drawer-head { display: flex; align-items: center; justify-content: space-between; padding: 6px 8px 6px 16px; border-bottom: 1px solid var(--border); }
+.drawer-head h3 { font-size: 24px; }
+.drawer-body { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 10px 18px 18px; font-size: 22px; line-height: 1.45; overscroll-behavior: contain; }
+.drawer-body h4 { font-size: 22px; margin: 0.9em 0 0.3em; color: var(--brand-ink); }
+.drawer-body h4:first-child { margin-top: 0.2em; }
+.drawer-body ul { padding-left: 1.1em; margin: 0.3em 0; }
+.drawer-body li { margin: 0.25em 0; }
+.drawer-body .eq-block { font-size: 22px; }
+
+.slide-right { min-width: 0; min-height: 0; display: flex; }
+
+/* ---- sim frame (presentation) */
+.mode-present .sim { flex: 1 1 auto; min-width: 0; min-height: 0; display: flex; flex-direction: column; gap: 8px; font-size: var(--fs-ctl); }
+.mode-present .sim-top { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; min-height: 46px; }
+.mode-present .readout { font-size: 18px; padding: 2px 9px; }
+.mode-present .readout.key .ro-value { font-size: 22px; }
+.mode-present .badge { font-size: 17px; }
+.mode-present .sim-tabs .btn { min-height: 40px; font-size: 19px; }
+.mode-present .sim-plots { flex: 1 1 auto; min-height: 0; display: grid; gap: 10px; }
+.mode-present .sim-plots.cols-2 { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); }
+.mode-present .sim-plots.cols-2e { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.mode-present .sim-plots.rows-r { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) minmax(0, 1fr); }
+.mode-present .sim-plots.rows-r > :first-child { grid-row: 1 / span 2; }
+.mode-present .sim-plots .panel { min-height: 0; }
+.mode-present .sim-plots .plot { min-height: 0; }
+.mode-present .panel-title { font-size: 20px; }
+.mode-present .panel-title .sub { font-size: 17px; }
+.mode-present .legend { font-size: 17px; }
+.mode-present .sim-caption { height: 64px; display: flex; flex: none; }
+.mode-present .sim-caption .caption-bar { flex: 1; font-size: 20px; height: 64px; padding: 4px 14px; }
+.mode-present .caption-bar .cap-main, .mode-present .caption-bar .cap-live { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.42; }
+.mode-present .caption-bar.idle .cap-main { white-space: normal; font-size: 19px; }
+.mode-present .caption-bar .cap-state { font-size: 17px; }
+.mode-present .sim-controls { display: flex; flex-direction: column; gap: 6px; }
+.mode-present .sim-controls .ctl-row { gap: 8px 12px; }
+.mode-present .sim-controls .seg .btn,
+.mode-present .sim-controls .metals .btn { min-height: 42px; font-size: 19px; }
+.mode-present .sim-controls .metals .btn { min-width: 2.6em; padding: 0 0.4em; }
+.mode-present .sliders { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 22px; }
+.mode-present .sliders.one { grid-template-columns: minmax(0, 1fr); }
+.mode-present .slider { font-size: 20px; }
+.mode-present .slider label { min-width: 2.2em; }
+.mode-present .only-detailed { display: none !important; }
+
+/* ---- hook overlay */
+.hook-overlay {
+  position: absolute; inset: 10px 14px; z-index: 20;
+  background: var(--surface);
+  border: 2px solid var(--brand);
+  border-radius: 16px;
+  box-shadow: 0 18px 50px rgba(29, 32, 64, 0.22);
+  padding: 16px 26px 16px;
+  display: flex; flex-direction: column; min-height: 0;
+}
+.hook-close { position: absolute; top: 10px; right: 12px; z-index: 2; }
+.hook-switch { position: absolute; top: 12px; right: 76px; display: flex; gap: 8px; z-index: 2; }
+.hook-overlay .hook-head { padding-right: 56px; }
+.hook-overlay.has-switch .hook-head { padding-right: 400px; }
+.mode-present .mission-metals .btn { font-size: 24px; min-height: 64px; min-width: 3.6em; }
+.mode-present .bc-rho { font-size: 34px; font-weight: 600; }
+.mode-present .bc-rho.hit { color: var(--c-neg-ink); }
+.hook-switch .btn { min-height: 40px; font-size: 18px; }
+.hook-overlay .hook-host { flex: 1 1 auto; min-height: 0; display: flex; }
+.mode-present .hook { flex: 1 1 auto; min-height: 0; font-size: 24px; gap: 14px; }
+.mode-present .hook-title { font-size: 26px; }
+.mode-present .hook-meta { font-size: 21px; }
+.mode-present .hook-q { font-size: 34px; }
+.mode-present .hook-sub { font-size: 22px; }
+.mode-present .hook-options .btn { font-size: 28px; min-height: 72px; }
+.mode-present .countdown { font-size: 56px; min-width: 1.6em; line-height: 1.1; }
+.mode-present .hook-body { flex: 1 1 auto; min-height: 0; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 22px; }
+.mode-present .hook-body.single { grid-template-columns: minmax(0, 1fr); }
+.mode-present .hook-visual { min-height: 0; display: flex; flex-direction: column; }
+.mode-present .hook-visual .plot { flex: 1 1 auto; min-height: 0; }
+.mode-present .hook-main { display: flex; flex-direction: column; gap: 14px; min-height: 0; }
+.mode-present .hook-feedback { font-size: 23px; }
+.mode-present .hook-footer { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.mode-present .hook-footer .btn { min-height: 52px; font-size: 21px; }
+.mode-present .mf-card { font-size: 30px; }
+.mode-present .leaderboard { font-size: 20px; }
+
+/* ---- intro slide and Animation 1 (all text >= 22 px) */
+.mode-present .intro-left .takeaway { font-size: 27px; line-height: 1.32; }
+.mode-present .stage-dots { display: flex; flex-wrap: wrap; gap: 8px; }
+.stage-dot { gap: 0.35em; }
+.stage-dot .sd-n {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 1.5em; height: 1.5em; border-radius: 50%;
+  background: var(--brand-tint); font-weight: 700;
+}
+.stage-dot[aria-current='step'] { background: var(--brand); border-color: var(--brand); }
+.stage-dot[aria-current='step'] .sd-n { background: var(--surface); }
+.mode-present .stage-dot { font-size: 22px; min-height: 50px; padding: 0 0.6em; }
+.mode-present .chip-anim {
+  --plot-label: 24px;
+  --plot-tick: 22px;
+  --ss-min: 19px;
+  font-size: 22px;
+}
+.mode-present .chip-anim .chip-scene { flex: 1 1 auto; min-height: 0; display: flex; }
+.mode-present .chip-anim .chip-scene .plot { flex: 1 1 auto; min-height: 0; }
+.mode-present .chip-anim .chip-caption { height: 80px; }
+.mode-present .chip-anim .chip-caption .caption-bar { height: 80px; font-size: 22px; }
+.mode-present .chip-anim .caption-bar .cap-live { font-family: var(--font-sans); font-size: 22px; }
+.mode-present .chip-anim .caption-bar .cap-state { display: none; }
+.mode-present .chip-anim .caption-bar.idle .cap-main { font-size: 22px; }
+.mode-present .chip-controls { display: flex; flex-direction: column; gap: 6px; }
+.mode-present .chip-controls .btn,
+.mode-present .chip-controls .ctl-label { font-size: 22px; }
+.mode-present .chip-controls .btn { min-height: 46px; }
+.mode-present .chip-controls .metals .btn { min-width: 2.6em; padding: 0 0.35em; }
+
+/* ---- extra view over the simulation column (Section 4: Back to the chip) */
+.slide-right { position: relative; }
+.extra-overlay {
+  position: absolute; inset: 0; z-index: 15;
+  background: var(--bg);
+  border: 2px solid var(--brand);
+  border-radius: 14px;
+  box-shadow: 0 12px 40px rgba(29, 32, 64, 0.18);
+  padding: 10px 14px;
+  display: flex; flex-direction: column; min-height: 0;
+}
+.extra-overlay .extra-sim { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; gap: 8px; }
+.extra-close { position: absolute; top: 6px; right: 8px; z-index: 2; }
+.mode-present .panel-note { font-size: 16px; margin-top: 2px; }
+.mode-present .panel-readouts { margin-bottom: 4px; }
+/* live band in Outline mode: keep the footer small so the diagram keeps its height */
+.mode-present .band-foot { font-size: 16px; line-height: 1.25; gap: 2px; margin-top: 2px; }
+.mode-present .band-foot .pause-carriers { min-height: 30px; padding: 1px 8px; }
+/* Settings (doping, T) open as a popover above the controls: the slide layout never changes */
+.mode-present .sim-controls { position: relative; }
+.mode-present .settings-pop {
+  position: absolute; left: 0; bottom: calc(100% + 8px); z-index: 6;
+  background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius);
+  box-shadow: var(--shadow); padding: 10px 14px; min-width: 560px;
+}
+.mode-present .settings-pop .settings-t { min-width: 300px; flex: 1 1 300px; }
+.mode-present .settings-pop .ctl-note { font-size: 16px; }
+/* Symbols overlay in Outline mode: readable from the back (text ≥ 22 px); the overlay scrolls */
+.mode-present .sym-overlay .overlay-card { font-size: 22px; }
+.mode-present .sym-overlay .sym-table th { font-size: 22px; }
+.mode-present .sym-overlay .sym-label, .mode-present .sym-overlay .sym-foot { font-size: 22px; }
+.mode-present .sym-overlay .badge { font-size: 22px; }
+.mode-present .sym-overlay h2 { font-size: 32px; }
+.mode-present .sym-overlay h3 { font-size: 26px; }
+/* formulas in the overlay: large enough that sub- and superscripts are ≥ 22 px too */
+.mode-present .sym-overlay .katex { font-size: 1.45em; }
+.mode-present .sym-overlay sub, .mode-present .sym-overlay sup { font-size: 22px; }
+/* "Given & formulas" in Outline mode: a button in the quiz header (and G); the box opens as a
+   panel over the picture column (like the More drawer) and scrolls inside if needed */
+.mode-present .given-btn { min-height: 42px; font-size: 20px; padding: 0 0.7em; }
+.mode-present .hook-body { position: relative; }
+.mode-present .given-pop {
+  font-size: 21px; background: var(--surface); border: 2px solid var(--brand); border-radius: 14px;
+  box-shadow: 0 14px 40px rgba(29, 32, 64, 0.2); padding: 10px 16px 14px;
+}
+.mode-present .given-pop:not(.inline) {
+  position: absolute; top: 0; right: 0; bottom: 0; z-index: 5; overflow: auto;
+  width: calc((100% - 22px) * 1.1 / 2.1);
+}
+.mode-present .hook-body.single .given-pop:not(.inline) { width: 60%; }
+.mode-present .given-head h4 { font-size: 23px; }
+.mode-present .given-close { font-size: 28px; min-height: 40px; padding: 0 0.4em; }
+.mode-present .given h5 { font-size: 18px; }
+.mode-present .given-pop .given-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 2px 22px; }
+.mode-present .given-pop .given-list li { margin: 1px 0; }
+.mode-present .given-pop .given-formulas li { margin: 3px 0; }
+.mode-present .given-pop h5 { margin: 4px 0 0; }
