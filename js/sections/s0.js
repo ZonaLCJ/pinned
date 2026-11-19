@@ -6,7 +6,7 @@ import { TRANSISTOR_RON } from '../../data/course-data.js';
 import { createChipAnim, chipStart } from '../chip-anim.js';
 
 const opening = () =>
-  `Every transistor in your phone has to pass current through a metal–semiconductor contact. When a transistor’s on-resistance falls toward ${TRANSISTOR_RON.value} ${TRANSISTOR_RON.unit}, the contacts dominate (${TRANSISTOR_RON.source}). Why can’t engineers just pick a better metal?`;
+  `Every transistor has to pass current through a metal–semiconductor contact. When a transistor’s on-resistance falls toward ${TRANSISTOR_RON.value} ${TRANSISTOR_RON.unit}, the contacts dominate. Why can’t engineers just pick a better metal?`;
 
 export default {
   id: 's0',
