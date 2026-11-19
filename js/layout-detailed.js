@@ -51,7 +51,7 @@ export function buildDetailed(root, { sections, intro, further = [], facts, onMo
   const hero = h(
     'section',
     { class: 'hero', id: 'top' },
-    h('p', { class: 'eyebrow' }, `${COURSE} · graduate course`),
+    h('p', { class: 'eyebrow' }),
     h('h1', {}, TITLE),
     h('div', { class: 'lede prose', html: mathify(X.lede) }),
   );
