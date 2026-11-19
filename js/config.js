@@ -10,7 +10,11 @@ export const COURSE = 'Introduction to Semiconductor';
  * The QR code encodes SITE_URL + '?mode=detailed'. When empty, the current
  * location (origin + path) is used instead.
  */
-export const SITE_URL = '';
+export const SITE_URL = 'https://zonalcj.github.io/pinned/#s1';
 
-/** TODO: author names for the footer. */
-export const AUTHORS = '';
+/** author names for the footer. */
+export const AUTHORS = 'LIN, CHIEH-JOU(R14245013); XU, ZHONG-WEI(R15245012)';
+
+/** Presentation timing targets (seconds). */
+// export const SECTION_TARGETS = { s0: 20, s1: 95, s2: 75, s3: 90, s4: 90 };
+// export const TOTAL_TARGET = 6 * 60 + 30;
