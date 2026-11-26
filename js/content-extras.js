@@ -43,6 +43,6 @@ export function EXTRAS() {
 <li>A. Y. Polyakov et al. (2006). Fermi level pinning in heavily neutron-irradiated GaN. <em>J. Appl. Phys.<em> 100, 093715. <a href="https://doi.org/10.1063/1.2361157" target="_blank" rel="noopener noreferrer">https://doi.org/10.1063/1.2361157</a> (GaN preset: E<sub>F</sub> pinned about ${num(SEMICONDUCTORS.GaN.Eg - PRESETS.gan.phi0, 1)} eV below E<sub>c</sub>; illustrative D<sub>it</sub>).</li>
 </ol>`,
     // footerNote: `Every number on this site is computed live by the engine (<code>js/engine.js</code>) or read from the course data file (<code>data/course-data.js</code>).`,
-    footerNote: `Every number on this site is computed live or found from the course material.`,
+    footerNote: `Every number on this site is computed live or found from the course material and References.`,
   };
 }
