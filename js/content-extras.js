@@ -32,7 +32,7 @@ export function EXTRAS() {
     refs: `<ol class="ref-list">
 <li>Course material of "Introduction to Semiconductor" by prof. Mario Hofmann of NTU.</li>
 <li>D. A. Neamen(2012), <em>Semiconductor Physics and Devices</em>, 4rd ed., ch. 9, pp.333 (Tables 9.1 and 9.2, interface-state model).</li>
-<li>J. Bardeen(1947). Surface States and Rectification at a Metal Semi-Conductor Contact. <em>Phys. Rev.</em>, 71, 717-727. <a href="https://doi.org/10.1103/PhysRev.71.717">https://doi.org/10.1103/PhysRev.71.717</a></li>
+<li>J. Bardeen(1947). Surface States and Rectification at a Metal Semi-Conductor Contact. <em>Phys. Rev.</em>, 71, 717-727. <a href="https://doi.org/10.1103/PhysRev.71.717" target="_blank" rel="noopener noreferrer">https://doi.org/10.1103/PhysRev.71.717</a></li>
 <li>V. Heine(1965). Theory of Surface States. <em>Phys. Rev.</em>, 138, A1689-A1696. <a href="https://doi.org/10.1103/PhysRev.138.A1689">https://doi.org/10.1103/PhysRev.138.A1689</a></li>
 <li>A. M. Cowley & S. M. Sze(1965). Surface States and Barrier Height of Metal‐Semiconductor Systems. <em>J. Appl. Phys.</em> 36, 3212. <a href="https://doi.org/10.1063/1.1702952">https://doi.org/10.1063/1.1702952</a></li>
 <li>J. Tersoff(1984). Schottky Barrier Heights and the Continuum of Gap States. <em>Phys. Rev. Lett.</em> 52, 465-468. <a href="https://doi.org/10.1103/PhysRevLett.52.465">https://doi.org/10.1103/PhysRevLett.52.46</a></li>
